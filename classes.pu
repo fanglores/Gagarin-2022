@@ -1,0 +1,42 @@
+@startuml
+class Robot 
+{
+   double wheelRadius
+   CommandReceiver* cmdrcv
+   IEngine* engines[2]
+   
+   Run()
+   Move(int direction, int distance)
+   Rotate(int direction, angle)
+}
+
+class CommandReceiver
+{
+   int server_address
+   int clientSocketFD
+
+   Connect()
+   getCommand()
+}
+
+class ConsoleEngine 
+{
+   Run(int, int)
+}
+
+class GPIOEngine
+{
+   Run(int, int)
+}
+
+abstract class IEngine
+{
+   Run(int signal, int value)
+}
+
+IEngine <|-- GPIOEngine
+IEngine <|-- ConsoleEngine
+Robot *-- IEngine : has 2 engines >
+Robot o-- CommandReceiver : has 1 >
+
+@enduml
