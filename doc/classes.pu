@@ -1,21 +1,31 @@
 @startuml
 class Robot 
 {
-   double wheelRadius
-   CommandReceiver* cmdrcv
+   ICommandReceiver* cmdrcv
    IEngine* engines[2]
+   double wheelRadius
    
    Run()
    Move(int direction, int distance)
    Rotate(int direction, angle)
 }
 
-class CommandReceiver
+abstract class ICommandReceiver
+{
+   virtual getCommand()
+}
+
+class TCPCommandReceiver
 {
    int server_address
    int clientSocketFD
 
    Connect()
+   getCommand()
+}
+
+class ConsoleCommandReceiver
+{
    getCommand()
 }
 
@@ -31,12 +41,14 @@ class GPIOEngine
 
 abstract class IEngine
 {
-   Run(int signal, int value)
+   virtual Run(int signal, int value)
 }
 
 IEngine <|-- GPIOEngine
 IEngine <|-- ConsoleEngine
-Robot *-- IEngine : has 2 engines >
-Robot o-- CommandReceiver : has 1 >
+ICommandReceiver <|-- TCPCommandReceiver
+ICommandReceiver <|-- ConsoleCommandReceiver
+Robot o-- IEngine : has 2 engines >
+Robot o-- ICommandReceiver : has 1 >
 
 @enduml
