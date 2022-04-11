@@ -1,0 +1,14 @@
+@startuml
+
+participant Server as S
+participant Robot as R
+
+R -> S : Connect
+S <- S : Estable connection  
+S <- S : Process images from cameras  
+S -> R : Send command
+R -> R : Process command
+...Wait until\n the command\n is executed\n...
+...Repeat...
+
+@enduml
