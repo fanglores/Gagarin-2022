@@ -21,6 +21,7 @@ class TCPCommandReceiver
    int server_address
    int clientSocketFD
 
+   TCPCommandReceiver(const char* sa)
    Connect()
    getCommand()
 }
