@@ -5,7 +5,7 @@ class Robot
    IEngine* engines[2]
    double wheelRadius
    
-   Robot(double wheelRadiuss, ICommandReceiver* cr, IEngine* [2])
+   Robot(double wR, ICommandReceiver* cr, IEngine* [2] engs)
    Run()
    Move(int direction, int distance)
    Rotate(int direction, angle)
